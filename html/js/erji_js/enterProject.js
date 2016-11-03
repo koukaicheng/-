@@ -27,7 +27,7 @@ $(function() {
 	});
 });
 
-//console.log(num_arr);
+
 (function() {
 	var num_arr = [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 	var type_arr = [[],[],[],[],[]];
@@ -119,7 +119,8 @@ $(function() {
 				}
 				
 			}
-			console.log(type_arr)
+//			console.log(type_arr)
+console.log(num_arr);
 			$.ajax({
 				type: "get",
 				url: "../../php/code/enterProject/enterProject.php",
