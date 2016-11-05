@@ -1,125 +1,111 @@
 (function(){
-  var baoming = $('#baoming');
-  $.ajax({
-    type:"get",
-    url:"../../php/code/index_php/hdxq.php",
-    async:true,
-    success:function(obj){
-      var my = JSON.parse(obj);
-      function creat(arr){
-        for(var i = 0 ; i<arr.length;i++){
-          var li = $('<li/>');
-          li.addClass("ll");
-          $(baoming).append(li);
-          $(li[0]).date = arr[i];
-          var div= $('<div/>');
-          div.addClass('date');
-          li.append(div);
-          div.text(arr[i].activity_time);
-          var p = $('<p/>');
-          p.addClass('pp');
-          li.append(p);
-          p.text(arr[i].activity_title);
-          var a = $('<a/>');
-          a.addClass('aa');
-          li.append(a);
-          a.text(arr[i].activity_state);
-          var dd = $('<div/>');
-          dd.addClass('dd');
-          li.append(dd);
-          var span = $('<span/>');
-          span.addClass("span1");
-          dd.append(span);
-          span.text(arr[i].activity_sort);
-          var img = $('<img/>');
-          img[0].src = "../img/index_img/dw.png";
-          dd.append(img);
-          var p = $('<p/>');
-          p.addClass('pl')
-          p.text(arr[i].activity_address);
-          dd.append(p);
-        }
-      }
-   creat(my);
-
-    }
-  })
-
-
-  var sg = $('.sg');
-  // console.log(sg.length);
-  var conent = $('.conent');
-    $.ajax({
-      type:"get",
-      url:"../../php/code/index_php/aa.php?name=战略伙伴",
-      async:true,
-      success:function(obj){
-        var my = JSON.parse(obj);
-        // console.log(my);
-        function creaa(arr){
-          for(var j = 0 ;j<arr.length;j++){
-             var a = $('<a/>');
-             a.addClass('sg_a');
-             var img = $('<img/>');
-             img[0].src = "../../php/img/index_hezuo/"+arr[j].index_img;
-             a.append(img);
-             $(conent[0]).append(a);
-          }
-        }
-      creaa(my);
-      }
-    })
-
-  for(var i=0 ;i<sg.length;i++){
-    // var hjhj = false;
-    // var arr = ["战略伙伴","创投机构","合作媒体"];
-    $(sg[i]).on('mouseover',function(){
-      // var sg =$('.sg');
-      // console.log(sg.length);
-      var title = this.innerHTML;
-      // $(sg[i]).title = arr[i];
-      var sg_a = $('.sg_a');
-      for(var f = 0;f<sg_a.length;f++){
-        sg_a[f].remove();
-      }
-      // console.log(title);
-      $.ajax({
-        type:"get",
-        url:"../../php/code/index_php/aa.php?name="+title,
-        async:true,
-        success:function(obj){
-          var my = JSON.parse(obj);
-          // console.log(my);
-          function creaa(arr){
-            for(var j = 0 ;j<arr.length;j++){
-               var a = $('<a/>');
-               a.addClass('sg_a');
-               var img = $('<img/>');
-               img[0].src = "../../php/img/index_hezuo/"+arr[j].index_img;
-               console.log("kkkk");
-               a.append(img);
-               $(conent[0]).append(a);
-            }
-          }
-        creaa(my);
-        }
-      })
-
-      for(var g =0 ;g<sg.length;g++){
-         $(sg[g]).css({
-           borderBottom:"none",
-           color:"black",
-         });
-      }
-      $(this).css({
-         borderBottom:"2px solid rgb(228,82,46)",
-         color:"rgb(228,82,46)"
-      })
-
-
-
-    })
-
-  }
-
+	//合作详情
+	$.ajax({
+		type:"get",
+		url:"../../php/code/index_php/hdxq.php",
+		async:true,
+		success:function(obj){
+			var my = JSON.parse(obj)
+//			console.log(my);
+			var hdxq = $("#hdxq");
+			function creatDiv (arr) {
+				for (var i = 0;i < arr.length;i++) {
+					var div = $("<div/>");
+					div.addClass("hdxq_list");
+					div[0].data = arr[i];
+					hdxq.append(div);
+					var date = $("<span/>");
+					date.addClass("hdxq_date");
+					date.text(arr[i].activity_time);
+					div.append(date);
+					var title = $("<p/>");
+					title.addClass("hdxq_title");
+					title.text(arr[i].activity_title);
+					div.append(title);
+					var sort = $("<span/>");
+					sort.addClass("hdxq_sort");
+					sort.text(arr[i].activity_sort);
+					div.append(sort);
+					var img = $("<img/>");
+					img.addClass("hdxq_img");
+					img[0].src = "../img/index_img/dw.png";
+					div.append(img);
+					var address = $("<p/>");
+					address.addClass("hdxq_address");
+					address.text(arr[i].activity_address);
+					div.append(address);
+					var state = $("<a/>");
+					state.addClass("hdxq_state");
+					state.text(arr[i].activity_state);
+					div.append(state);
+					div.on("click",function(){
+						window.location.assign(this.data.activity_url);
+					})
+				}
+			}
+			creatDiv(my);
+			var a = $("<a/>");
+			a[0].href="activity_day.html?name=全部活动"
+			a.text("全部活动");
+			a.addClass("hdxq_a");
+			hdxq.append(a);
+		}
+	});
+	//合作公司
+	var hover_title = $(".active");
+	var partner_pic = $(".partner_pic");
+	$.ajax({
+		type:"get",
+		url:"../../php/code/index_php/hzgs.php?name=战略伙伴",
+		async:true,
+		success:function(obj){
+			var my = JSON.parse(obj)
+			for (var j = 0;j < my.length;j++) {
+				var hover = $("<a/>");
+				hover.addClass("hover_a");
+				partner_pic.append(hover);
+				var img = $("<img/>");
+				img[0].src = "../../php/img/index_hezuo/" + my[j].index_img;
+				hover.append(img);
+			}
+		}
+	});
+	for (var i = 0;i < hover_title.length;i++) {
+		$(hover_title[i]).on("mouseover",function(){
+			var as = $(".hover_a");
+			for (var a = 0;a < as.length;a++) {
+				as[a].remove();
+			}
+			var title = this.innerHTML;
+			$.ajax({
+				type:"get",
+				url:"../../php/code/index_php/hzgs.php?name="+title,
+				async:true,
+				success:function(obj){
+					var my = JSON.parse(obj)
+//					console.log(my);
+					for (var j = 0;j < my.length;j++) {
+						var hover = $("<a/>");
+						hover.addClass("hover_a");
+						partner_pic.append(hover);
+						var img = $("<img/>");
+						img[0].src = "../../php/img/index_hezuo/" + my[j].index_img;
+						hover.append(img);
+					}
+				}
+			});
+			for (var f = 0;f < hover_title.length;f++) {
+				$(hover_title[f]).css({
+					color: "black",
+					borderBottom:"none"
+				})
+			}
+			$(this).css({
+				color:"rgb(228,82,46)",
+				borderBottom: "2px solid rgb(228,82,46)"
+			})
+		})
+	}
+	
+	
 })()

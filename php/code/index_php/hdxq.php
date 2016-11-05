@@ -1,6 +1,5 @@
 <?php
-$mysql = new mysqli("localhost","root","","xiangmu");
-
+$mysql = new mysqli("localhost","root","","orangeSpace");
   if ($mysql->connect_errno) {
     die($mysql->connect_errno);
   }
@@ -16,5 +15,4 @@ $mysql = new mysqli("localhost","root","","xiangmu");
   }
   $a = json_encode($myArray);
   echo $a;
-
- ?>
+?>

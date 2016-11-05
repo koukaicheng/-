@@ -1,6 +1,6 @@
 (function(){
 	var caret = $(".caret");
-	// console.log(caret);
+	console.log(caret);
 	//融资服务
 	var rzfu = $(".rzfu");
 	var rzfu_menu = $(".rzfu_menu");
@@ -64,3 +64,4 @@
 		}
 	})
 })()
+	
